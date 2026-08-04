@@ -14,17 +14,17 @@ import lombok.experimental.FieldDefaults;
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    Long id;
 
     @Column(name = "ten_mon_hoc", length = 255, nullable = false)
     String tenMonHoc;
 
     @Column(name = "so_tin_chi", nullable = false)
-    String soTinChi;
+    Integer soTinChi;
 
     @Column(name = "so_cho_toi_da", nullable = false)
-    String soChoToiDa;
+    Integer soChoToiDa;
 
     @Column(name = "so_cho_con_lai", nullable = false)
-    String soChoConLai;
+    Integer soChoConLai;
 }

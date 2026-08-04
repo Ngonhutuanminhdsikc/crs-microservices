@@ -1,32 +1,47 @@
-package vn.edu.crs.course_service.Controller;
+package vn.edu.crs.course_service.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import vn.edu.crs.course_service.dto.CourseDTO;
+import vn.edu.crs.course_service.service.CourseService;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/courses")
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class CourseController {
+    CourseService courseService;
+
     @GetMapping
-    public List<Map<String,Object>> getMockCourses(){
-        return List.of(
-          Map.of(
-                  "id",1,
-                  "tenMonHoc","Lap tring Java co ban",
-                  "soTinChi", 3,
-                  "soChoToiDa",40,
-                  "soChoConLai",12
-          ),
-                Map.of(
-                        "id",2,
-                        "tenMonHoc","Co so du lieu",
-                        "soTinChi", 4,
-                        "soChoToiDa",35,
-                        "soChoConLai",0
-                )
-        );
+    public List<CourseDTO> getAll() {
+        return courseService.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public CourseDTO getById(@PathVariable Long id) {
+        return courseService.getById(id);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public CourseDTO create(@Valid @RequestBody CourseDTO courseDTO) { // Bổ sung @Valid
+        return courseService.create(courseDTO);
+    }
+
+    @PutMapping("/{id}")
+    public CourseDTO update(@Valid @RequestBody CourseDTO courseDTO, @PathVariable Long id) {
+        return courseService.update(courseDTO, id);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) { // Bổ sung @PathVariable
+        courseService.deleteById(id);
     }
 }
