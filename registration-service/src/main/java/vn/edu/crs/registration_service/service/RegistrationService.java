@@ -24,7 +24,7 @@ public class RegistrationService {
         }
 // Buoc 1: goi sang course-service de tru cho TRUOC.
 // Neu buoc nay nem exception, ham se dung lai ngay, KHONG luu Registration.
-                courseClient.reserveSeat(dto.getCourseId());
+        courseClient.reserveSeat(dto.getCourseId());
 // Buoc 2: chi luu Registration SAU KHI course-service xac nhanthanh cong.
         Registration registration = new Registration();
         registration.setStudentId(dto.getStudentId());
